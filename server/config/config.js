@@ -10,7 +10,7 @@ let stringConnection;
 if (process.env.NODE_ENV === 'dev') {
     stringConnection = 'mongodb://localhost:27017/cafe';
 } else {
-    stringConnection = 'mongodb+srv://test01:test01@cluster0.dmp3a.gcp.mongodb.net/cafe?retryWrites=true&w=majority';
+    stringConnection = process.env.MONGO_URI;
 }
 
 process.env.URLDB = stringConnection;
