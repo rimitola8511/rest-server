@@ -1,6 +1,8 @@
 require('./config/config')
 
 const express = require('express');
+const mongoose = require('mongoose');
+
 const app = express();
 
 // Parsear la información que llega por post
@@ -10,38 +12,17 @@ const bodyPaser = require('body-parser');
 app.use(bodyPaser.urlencoded({ extended: false }));
 app.use(bodyPaser.json());
 
-app.get('/usuario', (req, res) => {
-    res.json('get usuario');
-})
+// Importar las rutas desde la carpeta routes
+app.use(require('./routes/usuario'));
 
-app.post('/usuario', (req, res) => {
-
-    let body = req.body;
-
-    if (body.name === undefined) {
-        res.status(400).json({
-            ok: false,
-            mensaje: 'El nombre es requerido'
-        })
-        return;
-    }
-
-    res.json({
-        persona: body
-    });
-})
-
-app.put('/usuario/:id', (req, res) => {
-
-    let id = req.params.id;
-
-    res.json({
-        id
-    });
-})
-
-app.delete('/usuario', (req, res) => {
-    res.json('delete usuario');
+// Conexión base de datos mongo con mongoose
+mongoose.connect(process.env.URLDB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+}, (err, res) => {
+    if (err) throw err;
+    console.log('Base de datos ONLINE');
 })
 
 app.listen(process.env.PORT, () => {
