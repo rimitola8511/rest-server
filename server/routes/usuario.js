@@ -7,10 +7,10 @@ const app = express();
 
 app.get('/usuario', (req, res) => {
 
-    let desde = req.query.desde || 0;
+    let desde = req.params.desde || 0;
     desde = Number(desde);
 
-    let limite = req.query.limite || 5
+    let limite = req.params.limite || 5
     limite = Number(limite)
 
     Usuario.find({ estado: true }, 'nombre email role estado google img')
