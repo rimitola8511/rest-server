@@ -13,7 +13,7 @@ app.use(bodyPaser.urlencoded({ extended: false }));
 app.use(bodyPaser.json());
 
 // Importar las rutas desde la carpeta routes
-app.use(require('./routes/usuario'));
+app.use(require('./routes/index'));
 
 // Conexión base de datos mongo con mongoose
 mongoose.connect(process.env.URLDB, {
