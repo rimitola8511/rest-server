@@ -2,6 +2,7 @@ require('./config/config')
 
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 
 const app = express();
 
@@ -11,6 +12,9 @@ const bodyPaser = require('body-parser');
 // Middlerwares
 app.use(bodyPaser.urlencoded({ extended: false }));
 app.use(bodyPaser.json());
+
+// Habilitar la carpeta public para que se pueda acceder de cualquier lugar
+app.use(express.static(path.resolve(__dirname, '../public')));
 
 // Importar las rutas desde la carpeta routes
 app.use(require('./routes/index'));
